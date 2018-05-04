@@ -1,6 +1,5 @@
 const Action = {
-    IDLE: 0,
-    THRUST: 1,
+    THRUST: 0
 };
 
 export default Action;

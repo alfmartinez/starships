@@ -8,23 +8,18 @@ export default class Engine {
     }
 
     evaluate() {
-
-        let action = {
-            type: Action.IDLE
-        };
+        const actions = [];
 
         if (this.output) {
-
             let component = this.components.find(item => item.label === this.output);
-
             if (component) {
-                action = {
+                actions.push({
                     type: Action.THRUST,
                     power: component.power
-                };
+                });
             }
         }
 
-        return action;
+        return actions;
     }
 }
