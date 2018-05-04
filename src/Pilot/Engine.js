@@ -1,9 +1,30 @@
 import Action from './Action';
 
 export default class Engine {
+
+    constructor({output,components}) {
+        this.output = output;
+        this.components = components;
+    }
+
     evaluate() {
-        return {
+
+        let action = {
             type: Action.IDLE
+        };
+
+        if (this.output) {
+
+            let component = this.components.find(item => item.label === this.output);
+
+            if (component) {
+                action = {
+                    type: Action.THRUST,
+                    power: component.power
+                };
+            }
         }
+
+        return action;
     }
 }
