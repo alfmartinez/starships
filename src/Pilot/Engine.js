@@ -1,4 +1,10 @@
 import Action from './Action';
+import Component from './Component';
+
+const ComponentAction = {
+    [Component.FORWARD]: Action.THRUST,
+    [Component.TURN]: Action.TURN
+};
 
 export default class Engine {
 
@@ -7,19 +13,24 @@ export default class Engine {
         this.components = components;
     }
 
-    evaluate() {
+    evaluate(world) {
         const actions = [];
 
         if (this.output) {
             let component = this.components.find(item => item.label === this.output);
             if (component) {
-                actions.push({
-                    type: Action.THRUST,
-                    power: component.power
-                });
+                actions.push(this.evaluateAction(component));
             }
         }
 
         return actions;
+    }
+
+    evaluateAction({value,type}) {
+        let actionType = ComponentAction[type];
+        return {
+            type: actionType,
+            value
+        };
     }
 }

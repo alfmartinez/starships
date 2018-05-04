@@ -35,7 +35,7 @@ describe('Pilot Engine', () => {
                 components: [{
                     label: 'x1',
                     type: Component.FORWARD,
-                    power: 1
+                    value: 1
                 }]
             };
             expectIdleAction(program, world);
@@ -48,12 +48,12 @@ describe('Pilot Engine', () => {
                 components: [{
                     label: 'x1',
                     type: Component.FORWARD,
-                    power: 1
+                    value: 1
                 }]
             };
             const expectedAction = {
                 type: Action.THRUST,
-                power: 1
+                value: 1
             };
             expectSingleAction(program, world, expectedAction);
         });
@@ -65,12 +65,12 @@ describe('Pilot Engine', () => {
                 components: [{
                     label: 'x1',
                     type: Component.FORWARD,
-                    power: 2
+                    value: 2
                 }]
             };
             const expectedAction = {
                 type: Action.THRUST,
-                power: 2
+                value: 2
             };
             expectSingleAction(program, world, expectedAction);
         });
@@ -84,10 +84,27 @@ describe('Pilot Engine', () => {
                 components: [{
                     label: 'x1',
                     type: Component.TURN,
-                    power: 1
+                    value: 1
                 }]
             };
             expectIdleAction(program, world);
+        });
+
+        it('should return TURN by fixed value if connected to output', () => {
+            const world = {};
+            const program = {
+                output: 'x1',
+                components: [{
+                    label: 'x1',
+                    type: Component.TURN,
+                    value: 5
+                }]
+            };
+            const expectedAction = {
+                type: Action.TURN,
+                value: 5
+            };
+            expectSingleAction(program, world, expectedAction);
         })
     });
 
